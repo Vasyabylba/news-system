@@ -1,0 +1,8 @@
+DELETE FROM comments WHERE id = 'f6eb2a7a-9a3f-49a0-b895-6019407b6a21';
+DELETE FROM comments WHERE id = '7b4c296b-40ff-4e43-841b-826d30c3566b';
+DELETE FROM comments WHERE id = '9d7a83ae-17a3-4ae6-83bd-977101fe6a2c';
+DELETE FROM comments WHERE news_id = 'b14e5f84-9d14-4477-a2a0-0bc2618f0469';
+
+DELETE FROM news WHERE id = 'b14e5f84-9d14-4477-a2a0-0bc2618f0469';
+DELETE FROM news WHERE id = 'ef6ca2a3-4535-4dda-9773-156e7e410afb';
+DELETE FROM news WHERE id = 'fa3a3d92-787f-49e1-85bd-de1e39c46662';
