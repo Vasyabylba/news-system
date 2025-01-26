@@ -1,0 +1,4 @@
+rootProject.name = 'news-service'
+
+include 'news-service-api'
+include 'news-service-core'

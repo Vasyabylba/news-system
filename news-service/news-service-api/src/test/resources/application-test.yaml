@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:17.2-alpine://news_system
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master-test.xml
+    contexts: test
+
+external-api:
+  comment-service:
+    url: "http://localhost:${wiremock.server.port:8082}/api/v1"
