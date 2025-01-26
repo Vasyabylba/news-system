@@ -1,0 +1,24 @@
+FROM gradle:jdk21-alpine AS builder
+WORKDIR /application
+COPY spring-boot-exception-handler-starter exception-handler-starter
+COPY spring-boot-logging-starter logging-starter
+COPY news-service news-service
+RUN --mount=type=cache,target=/root/.gradle cd exception-handler-starter && gradle clean build -x test
+RUN --mount=type=cache,target=/root/.gradle cd logging-starter && gradle clean build -x test
+RUN --mount=type=cache,target=/root/.gradle cd news-service && gradle clean build -x test
+
+FROM eclipse-temurin:21-jre-alpine AS layers
+WORKDIR /application
+COPY --from=builder /application/news-service/news-service-api/build/libs/*.jar app.jar
+RUN java -Djarmode=layertools -jar app.jar extract
+
+FROM eclipse-temurin:21-jre-alpine
+VOLUME /tmp
+RUN adduser -S -h /application spring-user
+USER spring-user
+COPY --from=layers /application/dependencies/ ./
+COPY --from=layers /application/spring-boot-loader/ ./
+COPY --from=layers /application/snapshot-dependencies/ ./
+COPY --from=layers /application/application/ ./
+
+ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]

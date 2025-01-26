@@ -1,0 +1,72 @@
+services:
+
+  db-news-system:
+    extends:
+      service: postgres
+      file: services.yaml
+    container_name: db-news-system
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: news_system
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - news-system
+
+  redis-cache:
+    extends:
+      service: redis
+      file: services.yaml
+    container_name: redis-cache
+    networks:
+      - news-system
+
+  news-service:
+    image: news-service
+    build:
+      context: .
+      dockerfile: DockerfileNewsService
+      no_cache: true
+      args:
+        DOCKER_BUILDKIT: 1
+    container_name: news-service
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: demo, redis
+    depends_on:
+      db-news-system:
+        condition: service_healthy
+      redis-cache:
+        condition: service_healthy
+    networks:
+      - news-system
+
+  comment-service:
+    image: comment-service
+    build:
+      context: .
+      dockerfile: DockerfileCommentService
+      no_cache: true
+      args:
+        DOCKER_BUILDKIT: 1
+    container_name: comment-service
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_PROFILES_ACTIVE: demo, redis
+    depends_on:
+      news-service:
+        condition: service_started
+    networks:
+      - news-system
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  news-system:
