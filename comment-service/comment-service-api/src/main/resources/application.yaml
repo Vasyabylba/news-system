@@ -1,0 +1,30 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: ${APP_NAME:comment-service}
+  profiles:
+    active: ${APP_PROFILES_ACTIVE:demo, redis}
+  output:
+    ansi:
+      enabled: always
+
+springdoc:
+  swagger-ui:
+    url: /comments-api.yaml
+
+#external-api:
+#  comment-service:
+#    url: url for comment-service API
+
+#exception-handling:
+#  enable: Enable or disable exception handling | default - true
+
+#controller-logging:
+#  enable: Enable or disable request-response logging | default - false
+
+#in-memory-cache:
+#  enable: Enabling or disabling the cache | default - false
+#  algorithm: Cache algorithm LRU (Least Recently Used) or LFU (Least Frequently Used) | default - LRU
+#  capacity: Cache capacity | default - 3

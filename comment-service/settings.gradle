@@ -1,0 +1,4 @@
+rootProject.name = 'comment-service'
+
+include 'comment-service-api'
+include 'comment-service-core'
