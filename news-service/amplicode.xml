@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AmplicodeDatabaseMigrationSettings" liquibaseFileType="SQL" />
+  <component name="AmplicodeJpaPluginProjectSettings" mapperMethodToEntityPattern="to${ENTITY_NAME}">
+    <option name="entityNameTemplate" />
+    <option name="isLombokToString" value="true" />
+    <option name="isLombokBuilder" value="true" />
+    <option name="isLombokAllArgsConstructor" value="true" />
+    <option name="isLombokNoArgsConstructor" value="true" />
+    <option name="scaffoldingLanguage" />
+    <option name="lastSelectedLanguage" value="Java" />
+  </component>
+  <component name="AmplicodePersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit moduleName="news-service.api.main" name="Default">
+        <packages>
+          <package value="ru.clevertec.newssystem.news" />
+        </packages>
+      </persistence-unit>
+    </persistence-units>
+  </component>
+</project>

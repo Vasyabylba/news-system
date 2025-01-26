@@ -1,0 +1,25 @@
+-- liquibase formatted sql
+
+-- changeset Vasiliy:add-data-to-news-table
+INSERT INTO news (id, created_at, last_modified_at, title, text)
+VALUES
+('035cd8a9-9707-41c6-8810-b1566cc49c7b', NOW() - interval '10 days', NOW() - interval '9 days', 'Breaking News: AI Takes Over the World', 'Artificial Intelligence is making headlines as it rapidly advances across industries, changing the way we work and live.'),
+('46c7a097-b9b8-487c-bc21-bbcc8079a6eb', NOW() - interval '9 days', NOW() - interval '8 days', 'Discover the Top 10 Tech Innovations of 2025', 'Explore the most groundbreaking technologies of this year, from quantum computing to advanced robotics.'),
+('39673fc4-0bb9-47c2-abdb-13eb01d58429', NOW() - interval '8 days', NOW() - interval '7 days', 'Global Markets on the Rise', 'Stock markets around the globe have seen significant gains, driven by investor confidence and strong earnings reports.'),
+('3d5caee5-e48b-4e43-b807-7040ad916059', NOW() - interval '7 days', NOW() - interval '6 days', 'Health Tips for the Modern Age', 'Doctors reveal new strategies to stay healthy in a fast-paced world. Learn how to balance work, life, and wellness.'),
+('eba3d54b-f008-4d07-a98e-3200a1ee9e25', NOW() - interval '6 days', NOW() - interval '5 days', 'Space Exploration: Mars Mission Update', 'NASA has provided updates on the progress of the Mars mission, with new discoveries reshaping our understanding of the red planet.'),
+('bec1d800-7d62-4518-a122-b2356e75346a', NOW() - interval '5 days', NOW() - interval '4 days', 'Entertainment: Top Movies of the Year', 'Critics have spoken! Discover the top movies that have captivated audiences around the world this year.'),
+('eff0090d-c211-42ad-a106-ba2ed31c1b8e', NOW() - interval '4 days', NOW() - interval '3 days', 'The Future of Education: Online Learning', 'With advancements in technology, online learning platforms are transforming how we acquire knowledge.'),
+('049cdfc2-1668-40ab-bacc-a82d40dac30c', NOW() - interval '3 days', NOW() - interval '2 days', 'Climate Change: The Latest Data Revealed', 'New studies reveal alarming trends in global warming and the urgent need for action to mitigate climate change.'),
+('87735d1c-7650-4308-ba7b-2218f2d2860e', NOW() - interval '2 days', NOW() - interval '1 day', 'Sports Update: Championship Finals Recap', 'An exciting finale to this year''s championship games, with unexpected twists and incredible performances.'),
+('915ff41c-4c8d-4d98-a927-b3ddf077366b', NOW() - interval '1 day', NOW() - interval '12 hours', 'Breaking: New Discoveries in Renewable Energy', 'Scientists announce breakthroughs in renewable energy technology, paving the way for a greener future.'),
+('7affdbc7-c0c6-4f38-87c8-24d65d9ed374', NOW() - interval '12 hours', NOW() - interval '6 hours', 'Tech Giant Releases New Smartphone', 'The latest smartphone from a leading tech company features cutting-edge technology and a sleek design.'),
+('ccf130f4-e7eb-449c-abb9-66531f50af26', NOW() - interval '6 hours', NOW(), 'Economic Insights: What''s Next for the Economy?', 'Experts weigh in on the global economy''s future, highlighting potential challenges and opportunities.'),
+('8c2c30fa-3066-462b-b20f-abc25d0042b9', NOW() - interval '15 days', NOW() - interval '14 days', 'How AI is Transforming Healthcare', 'Artificial Intelligence is revolutionizing healthcare by improving diagnostics, treatment plans, and patient care.'),
+('2ba07478-f3a1-47a3-b428-ca31065c0936', NOW() - interval '14 days', NOW() - interval '13 days', 'Travel Trends: Best Destinations of 2025', 'Discover the most popular travel destinations for this year and tips for planning your perfect vacation.'),
+('2a24fefb-ee9f-4014-b567-f423ee8ef02f', NOW() - interval '13 days', NOW() - interval '12 days', 'Innovations in Sustainable Living', 'Learn about the latest innovations that are making sustainable living more accessible and affordable.'),
+('05925d9f-4b13-4a04-b273-1ee222fa71bb', NOW() - interval '12 days', NOW() - interval '11 days', 'Finance: How to Invest Wisely in 2025', 'Experts share strategies for smart investing in a rapidly changing financial landscape.'),
+('49dd531a-f69f-43ca-b1c0-5e7fb294ed56', NOW() - interval '11 days', NOW() - interval '10 days', 'Gaming Industry Boom: Top Games to Watch', 'The gaming industry is experiencing unprecedented growth, with new games breaking records worldwide.'),
+('d21a51bd-3495-43e0-859f-7d58f76e493e', NOW() - interval '10 days', NOW() - interval '9 days', 'Fashion Forward: Trends for 2025', 'Explore the latest trends in fashion, from bold colors to sustainable fabrics.'),
+('61d1bd55-fc87-4133-825b-3f761a327a1a', NOW() - interval '9 days', NOW() - interval '8 days', 'The Rise of Electric Vehicles', 'Electric vehicles are gaining popularity as automakers launch new models with extended ranges and improved features.'),
+('4db25e09-ae14-4b39-b493-cb5d79cf1f7d', NOW() - interval '8 days', NOW() - interval '7 days', 'Startup Spotlight: Innovations to Watch', 'Innovative startups are shaking up industries with new ideas and solutions. Learn about the ones to watch in 2025.');
