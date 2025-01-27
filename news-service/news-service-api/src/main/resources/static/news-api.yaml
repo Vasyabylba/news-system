@@ -94,9 +94,10 @@ paths:
           description: Invalid request
           content:
             application/json:
-              oneOf:
-                - $ref: '#/components/schemas/GenericErrorResponse'
-                - $ref: '#/components/schemas/ValidationErrorResponse'
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/GenericErrorResponse'
+                  - $ref: '#/components/schemas/ValidationErrorResponse'
         '422':
           description: Resource not found
           content:
@@ -128,9 +129,10 @@ paths:
           description: Invalid request
           content:
             application/json:
-              oneOf:
-                - $ref: '#/components/schemas/GenericErrorResponse'
-                - $ref: '#/components/schemas/ValidationErrorResponse'
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/GenericErrorResponse'
+                  - $ref: '#/components/schemas/ValidationErrorResponse'
         '422':
           description: Resource not found
           content:
@@ -166,9 +168,10 @@ paths:
           description: Invalid request
           content:
             application/json:
-              oneOf:
-                - $ref: '#/components/schemas/GenericErrorResponse'
-                - $ref: '#/components/schemas/ValidationErrorResponse'
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/GenericErrorResponse'
+                  - $ref: '#/components/schemas/ValidationErrorResponse'
         '422':
           description: Resource not found
           content:
@@ -234,9 +237,10 @@ paths:
           description: Invalid request
           content:
             application/json:
-              oneOf:
-                - $ref: '#/components/schemas/GenericErrorResponse'
-                - $ref: '#/components/schemas/ValidationErrorResponse'
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/GenericErrorResponse'
+                  - $ref: '#/components/schemas/ValidationErrorResponse'
         '422':
           description: Resource not found
           content:
