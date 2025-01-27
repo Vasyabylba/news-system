@@ -1,6 +1,6 @@
 <h1 align="center">Comment Service</h1>
 
-RESTful сервис для работы с новостями.
+RESTful сервис для работы с комментариями.
 
 * [Comment API](#comment-api)
 
