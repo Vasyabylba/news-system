@@ -29,7 +29,7 @@ RESTful платформа, реализующая функционал для �
 1. Клонировать Git репозиторий:
 
     ```bash
-    git https://github.com/Vasyabylba/news-system.git
+    git clone https://github.com/Vasyabylba/news-system.git
     ```
 
 2. Перейти в корневую директорию проекта и запустить docker compose файл для демонстрации работы приложения:
@@ -43,7 +43,7 @@ RESTful платформа, реализующая функционал для �
 1. Клонировать Git репозиторий:
 
     ```bash
-    git https://github.com/Vasyabylba/news-system.git
+    git clone https://github.com/Vasyabylba/news-system.git
     ```
 
 2. Перейти в корневую директорию проекта и собрать необходимые зависимости:
@@ -51,9 +51,9 @@ RESTful платформа, реализующая функционал для �
    ```bash
    cd news-system
    
-   cd spring-boot-exception-handling-starter .\gradlew clean -x test build cd ..
+   cd spring-boot-exception-handling-starter ./gradlew clean -x test build cd ..
      
-   cd spring-boot-logging-starter .\gradlew clean -x test build cd ..
+   cd spring-boot-logging-starter ./gradlew clean -x test build cd ..
    ```  
 
 3. Для демонстрации работы проекта все необходимые параметры уже настроены в файлах свойств приложений.
