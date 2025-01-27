@@ -1,0 +1,447 @@
+openapi: 3.0.3
+info:
+  title: News API
+  version: 1.0.0
+  description: API for managing news with pagination and filters.
+
+paths:
+  /api/v1/news:
+    get:
+      summary: Get all news
+      description: Retrieve a paginated list of news with optional filters
+      parameters:
+        - name: page
+          in: query
+          description: "Page number (pagination)"
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: "Number of items per page (pagination)"
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Field and sort order (e.g. createdAt,desc)"
+          required: false
+          schema:
+            type: string
+        - name: createdAtGte
+          in: query
+          description: "Filter news created after or at this date"
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: "2025-01-01 14:30:00"
+        - name: createdAtLte
+          in: query
+          description: "Filter news created before or at this date"
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: "2025-01-01 14:30:00"
+        - name: titleContains
+          in: query
+          description: "Filter news by title substring"
+          required: false
+          schema:
+            type: string
+            example: "Tech Giant"
+        - name: textContains
+          in: query
+          description: "Filter news by text substring"
+          required: false
+          schema:
+            type: string
+            example: "The latest smartphone"
+      responses:
+        "200":
+          description: A paginated list of news
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsWindowResponse"
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericErrorResponse"
+
+    post:
+      summary: Create news
+      description: Create a new news item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewsCreateRequest"
+      responses:
+        "201":
+          description: News created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsResponse"
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/GenericErrorResponse'
+                  - $ref: '#/components/schemas/ValidationErrorResponse'
+        '422':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+
+
+  /api/v1/news/{newsId}:
+    get:
+      summary: Get news by ID
+      description: Retrieve a single news item by its unique identifier
+      parameters:
+        - name: newsId
+          in: path
+          required: true
+          description: Unique identifier of the news
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: A single news item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsResponse"
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/GenericErrorResponse'
+                  - $ref: '#/components/schemas/ValidationErrorResponse'
+        '422':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+
+    put:
+      summary: Update news
+      description: Update an existing news item
+      parameters:
+        - name: newsId
+          in: path
+          required: true
+          description: Unique identifier of the news
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewsUpdateRequest"
+      responses:
+        "200":
+          description: News updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsResponse"
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/GenericErrorResponse'
+                  - $ref: '#/components/schemas/ValidationErrorResponse'
+        '422':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+
+    delete:
+      summary: Delete news
+      description: Delete an existing news item
+      parameters:
+        - name: newsId
+          in: path
+          required: true
+          description: Unique identifier of the news
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "204":
+          description: News deleted successfully
+
+  /api/v1/news/{newsId}/with-comments:
+    get:
+      summary: Get news with comments by ID
+      description: Retrieve a single news item with its comments by its unique identifier
+      parameters:
+        - name: newsId
+          in: path
+          required: true
+          description: Unique identifier of the news
+          schema:
+            type: string
+            format: uuid
+        - name: page
+          in: query
+          description: "Page number (pagination)"
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          description: "Number of items per page (pagination)"
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: sort
+          in: query
+          description: "Field and sort order (e.g. createdAt,desc)"
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A single news item with comments
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsWithCommentsResponse"
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/GenericErrorResponse'
+                  - $ref: '#/components/schemas/ValidationErrorResponse'
+        '422':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorResponse'
+
+components:
+  schemas:
+    NewsWindowResponse:
+      type: object
+      properties:
+        empty:
+          type: boolean
+          description: Indicates whether the list of news is empty
+          example: "false"
+        content:
+          type: array
+          description: The list of news items
+          items:
+            $ref: "#/components/schemas/NewsResponse"
+        last:
+          type: boolean
+          description: Indicates whether this is the last page of news
+          example: "true"
+
+    NewsResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the news
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp of the news
+          example: "2025-01-01 14:30:00"
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: Last modification timestamp of the news
+          example: "2025-01-01 14:30:00"
+        title:
+          type: string
+          description: Title of the news
+          example: "This is title of news"
+        text:
+          type: string
+          description: Text content of the news
+          example: "Example text content of the news"
+
+    NewsWithCommentsResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the news
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp of the news
+          example: "2025-01-01 14:30:00"
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: Last modification timestamp of the news
+          example: "2025-01-01 14:30:00"
+        title:
+          type: string
+          description: Title of the news
+          example: "This is title of news"
+        text:
+          type: string
+          description: Text content of the news
+          example: "Example text content of the news"
+        comments:
+          type: object
+          description: Paginated list of comments
+          items:
+            $ref: "#/components/schemas/CommentWindowResponse"
+
+    CommentWindowResponse:
+      type: object
+      properties:
+        empty:
+          type: boolean
+          description: Indicates whether the list of news is empty
+          example: "false"
+        content:
+          type: array
+          description: The list of news items
+          items:
+            $ref: "#/components/schemas/CommentResponse"
+        last:
+          type: boolean
+          description: Indicates whether this is the last page of news
+          example: "true"
+
+    CommentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the comment
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp of the comment
+          example: "2025-01-01 14:30:00"
+        lastModifiedAt:
+          type: string
+          format: date-time
+          description: Last modification timestamp of the comment
+          example: "2025-01-01 14:30:00"
+        text:
+          type: string
+          description: Text content of the comment
+          example: "This is a comment"
+        username:
+          type: string
+          description: Username of the comment author
+          example: "user1"
+
+    NewsCreateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the news
+          example: "This is title of news"
+        text:
+          type: string
+          description: Text content of the news
+          example: "Example text content of the news"
+      required:
+        - title
+        -
+    NewsUpdateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the news
+          example: "Updated news title"
+        text:
+          type: string
+          description: Text content of the news
+          example: "Updated news text"
+      required:
+        - title
+        -
+    GenericErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 422
+        status:
+          type: string
+          description: HTTP status description
+          example: "UNPROCESSABLE_ENTITY"
+        message:
+          type: string
+          description: A detailed error message
+          example: "Resource with id 'ID' not found"
+        time:
+          type: string
+          format: date-time
+          description: Timestamp of the error
+          example: "2025-01-01 14:30:00"
+
+    ValidationErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+          example: 400
+        status:
+          type: string
+          description: HTTP status description
+          example: "BAD_REQUEST"
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              property:
+                type: string
+                description: Invalid request property
+                example: "text"
+              message:
+                type: string
+                description: A detailed error message
+                example: "Text must not be blank"
+        time:
+          type: string
+          format: date-time
+          description: Timestamp of the error
+          example: "2025-01-01 14:30:00"

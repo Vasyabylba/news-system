@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER:root}
+    password: ${POSTGRES_PASSWORD:root}
+    url: jdbc:${POSTGRES_CONNECTION:postgresql}://${POSTGRES_HOST:localhost:5433}/${POSTGRES_DB:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    contexts: dev
+  data:
+    redis:
+      host: redis-cache
+      port: 6379
+  cache:
+    type: redis
+    redis:
+      time-to-live: 60m
+
+external-api:
+  news-service:
+    url: "http://localhost:8081/api/v1"
+
+exception-handling:
+  enable: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        orm:
+          jdbc:
+            bind: trace

@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.1'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id("io.freefair.lombok") version "8.12"
+    id 'maven-publish'
+}
+
+group = 'ru.clevertec'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            groupId = "${group}"
+            artifactId = 'spring-boot-logging-starter'
+            version = "${version}"
+
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+
+        }
+    }
+}
+
+tasks.register('publishLoggingStarterToMavenLocal') {
+    dependsOn publishMavenJavaPublicationToMavenLocal
+}
+
+build {
+    finalizedBy('publishToMavenLocal')
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+    archiveBaseName.set('spring-boot-logging-starter')
+}

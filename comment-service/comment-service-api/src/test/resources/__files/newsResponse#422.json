@@ -1,0 +1,6 @@
+{
+  "code": 422,
+  "status": "UNPROCESSABLE_ENTITY",
+  "message": "News with id 'ccf130f4-e7eb-449c-abb9-66531f50af22' not found",
+  "time": "2025-01-01 03:18:56"
+}
