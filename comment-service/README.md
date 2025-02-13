@@ -7,19 +7,23 @@ RESTful сервис для работы с комментариями.
 ## Используемые зависимости
 
 - Java 21
-- Spring boot
-- Gradle
-- PostgreSQL
-- Liquibase
-- Redis
-- Docker
-- Swagger (OpenAPI 3.0)
+- Spring Boot
 - Spring Data JPA
 - Spring Data Redis
 - Spring Web MVC
 - Spring Cloud OpenFeign
+- PostgreSQL
+- Liquibase
+- Redis
+- JUnit
+- Mockito
+- Testcontainers
+- WireMock
 - MapStruct
 - Lombok
+- Gradle
+- Docker
+- Swagger (OpenAPI)
 
 ### Описание
 
